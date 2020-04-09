@@ -31,7 +31,7 @@ class RabbitmqTransport extends TransportStream {
         this.level = this.config.level;
         this.bufferMax = this.config.bufferMax;
 
-        this.debug = this.level === 'debug' && typeof this.config.debug && typeof this.config.debug === 'function' ? this.config.debug : console.debug;
+        this.debug = this.level === 'debug' && this.config.debug && typeof this.config.debug === 'function' ? this.config.debug : console.debug;
 
         if (this.config.logToConsole) {
             this.log = this.logToConsole;
