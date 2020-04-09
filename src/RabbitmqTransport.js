@@ -6,6 +6,11 @@ const config = require('./config');
 
 class RabbitmqTransport extends TransportStream {
 
+    /**
+     *Creates an instance of RabbitmqTransport.
+     * @param {*} options
+     * @memberof RabbitmqTransport
+     */
     constructor(options) {
         super(options);
         TransportStream.call(this, options);
@@ -15,6 +20,11 @@ class RabbitmqTransport extends TransportStream {
         if (!this.config.lazyInit) { setImmediate(async () => await this.initializeRabbitmq()) }
     }
 
+    /**
+     *
+     *Validates critical options passed as params in constructor
+     * @memberof RabbitmqTransport
+     */
     validate() {
         if (typeof this.config.url !== 'string')
             throw new TypeError('[RabbitmqTransport]: RabbitMQ url must be of type string');
@@ -26,6 +36,12 @@ class RabbitmqTransport extends TransportStream {
             throw new Error('[RabbitmqTransport]: Incorrect protocol, must be amqp');
     }
 
+    /**
+     *
+     *Initializes properties and debug functions
+     * @returns
+     * @memberof RabbitmqTransport
+     */
     initialize() {
         this.name = this.config.name;
         this.level = this.config.level;
@@ -39,6 +55,11 @@ class RabbitmqTransport extends TransportStream {
         }
     }
 
+    /**
+     *Initializes RabbitMQ connection
+     *
+     * @memberof RabbitmqTransport
+     */
     async initializeRabbitmq() {
         try {
             this.connection = await this.createConnection(this.config.url);
@@ -49,6 +70,11 @@ class RabbitmqTransport extends TransportStream {
         }
     }
 
+    /**
+     *Closes open connections if any
+     *
+     * @memberof RabbitmqTransport
+     */
     async close() {
         if (this.loggingChannel) { await this.loggingChannel.close(); }
         delete this.loggingChannel;
@@ -57,6 +83,14 @@ class RabbitmqTransport extends TransportStream {
         delete this.connection;
     }
 
+    /**
+     *Creates a new RabbitMQ connection
+     *
+     * @param {*} url
+     * @param {*} socketOpts
+     * @returns {*} connection
+     * @memberof RabbitmqTransport
+     */
     async createConnection(url, socketOpts) {
         const connection = await amqplib.connect(url, socketOpts);
         connection.on('error', (err) => {
@@ -70,6 +104,14 @@ class RabbitmqTransport extends TransportStream {
         return connection;
     }
 
+    /**
+     *Creates a new RabbitMQ channel 
+     *
+     * @param {*} connection
+     * @param {*} key
+     * @returns {*} channel
+     * @memberof RabbitmqTransport
+     */
     async createChannel(connection, key) {
         const channel = await connection.createChannel();
         channel.assertExchange(this.config.exchange, 'topic', this.config.exchangeOptions);
@@ -84,6 +126,15 @@ class RabbitmqTransport extends TransportStream {
         return channel;
     }
 
+    /**
+     *Logs to console if mq logging is disabled
+     *
+     * @param {*} level
+     * @param {*} msg
+     * @param {*} meta
+     * @param {*} callback
+     * @memberof RabbitmqTransport
+     */
     logToConsole(level, msg, meta, callback) {
         if (typeof meta === 'function') {
             callback = meta;
@@ -93,6 +144,15 @@ class RabbitmqTransport extends TransportStream {
         callback(null, true);
     }
 
+    /**
+     *Main logging function that sends logs to RabbitMQ
+     *
+     * @param {*} level
+     * @param {*} msg
+     * @param {*} meta
+     * @param {*} callback
+     * @memberof RabbitmqTransport
+     */
     log(level, msg, meta, callback) {
         if (typeof meta === 'function') {
             callback = meta;
