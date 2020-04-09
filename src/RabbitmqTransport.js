@@ -65,7 +65,7 @@ class RabbitmqTransport extends TransportStream {
             this.connection = await this.createConnection(this.config.url);
             this.loggingChannel = await this.createChannel(this.connection);
         } catch (err) {
-            this.close().catch();
+            this.close().catch((e) => this.debug(e.message));
             throw new Error('[RabbitmqTransport]: ' + err);
         }
     }
