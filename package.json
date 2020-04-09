@@ -1,0 +1,47 @@
+{
+  "name": "winston-rabbitmq-transport",
+  "version": "0.0.1",
+  "description": "A transport module for winston that logs to RabbitMQ",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --runInBand --detectOpenHandles",
+    "test-full": "jest --coverage --runInBand --detectOpenHandles --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debarghyab/winston-rabbitmq-transport.git"
+  },
+  "keywords": [
+    "rabbitmq",
+    "winston",
+    "logger",
+    "amqp",
+    "transport",
+    "winston-rabbitmq",
+    "winston-transport",
+    "amqp-transport",
+    "rabbitmq-logger",
+    "logger"
+  ],
+  "author": "Debarghya Bhattacharya",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/debarghyab/winston-rabbitmq-transport/issues"
+  },
+  "homepage": "https://github.com/debarghyab/winston-rabbitmq-transport#readme",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-plugin-node": "^10.0.0",
+    "jest": "^25.3.0"
+  },
+  "engines": {
+    "node": ">=8.3.0"
+  }
+}
