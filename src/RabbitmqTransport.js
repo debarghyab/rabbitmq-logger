@@ -63,7 +63,7 @@ class RabbitmqTransport extends TransportStream {
     async initializeRabbitmq() {
         try {
             this.connection = await this.createConnection(this.config.url);
-            this.loggingChannel = await this.createChannel(this.connection, 'log-pub');   
+            this.loggingChannel = await this.createChannel(this.connection);
         } catch (err) {
             this.close().catch();
             throw new Error('[RabbitmqTransport]: ' + err);
@@ -108,11 +108,10 @@ class RabbitmqTransport extends TransportStream {
      *Creates a new RabbitMQ channel 
      *
      * @param {*} connection
-     * @param {*} key
      * @returns {*} channel
      * @memberof RabbitmqTransport
      */
-    async createChannel(connection, key) {
+    async createChannel(connection) {
         const channel = await connection.createChannel();
         channel.assertExchange(this.config.exchange, 'topic', this.config.exchangeOptions);
         this.debug('[RabbitmqTransport]: Channel Created');
