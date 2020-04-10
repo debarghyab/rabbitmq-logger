@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'winston-rabbitmq',
+    name: 'rabbitmq-logger',
     bufferMax: 1000,
     level: 'debug',
     logToConsole: false,
