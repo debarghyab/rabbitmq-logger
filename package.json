@@ -1,5 +1,5 @@
 {
-  "name": "winston-rabbitmq-transport",
+  "name": "rabbitmq-logger",
   "version": "0.0.1",
   "description": "A transport module for winston that logs to RabbitMQ",
   "main": "index.js",
