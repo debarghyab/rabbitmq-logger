@@ -45,7 +45,6 @@ class RabbitmqTransport extends TransportStream {
     initialize() {
         this.name = this.config.name;
         this.level = this.config.level;
-        this.bufferMax = this.config.bufferMax;
 
         this.debug = this.level === 'debug' && this.config.debug && typeof this.config.debug === 'function' ? this.config.debug : console.debug;
 
