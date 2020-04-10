@@ -17,7 +17,7 @@ class RabbitmqTransport extends TransportStream {
         this.config = { ...config, ...options }
         this.validate()
         this.initialize();
-        if (!this.config.lazyInit) { setImmediate(async () => await this.initializeRabbitmq()) }
+        if (!this.config.lazyInit && !this.config.logToConsole) { setImmediate(async () => await this.initializeRabbitmq()) }
     }
 
     /**
@@ -93,6 +93,7 @@ class RabbitmqTransport extends TransportStream {
      */
     async createConnection(url, socketOpts) {
         const connection = await amqplib.connect(url, socketOpts);
+        this.debug('[RabbitmqTransport]: Connection established');
         connection.on('error', (err) => {
             if (err.message !== 'Connection closing') {
                 throw err;
