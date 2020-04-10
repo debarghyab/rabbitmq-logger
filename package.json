@@ -1,6 +1,6 @@
 {
   "name": "rabbitmq-logger",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A transport module for winston that logs to RabbitMQ",
   "main": "src/index.js",
   "directories": {
