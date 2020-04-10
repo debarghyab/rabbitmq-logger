@@ -3,7 +3,7 @@ module.exports = {
     bufferMax: 1000,
     level: 'debug',
     logToConsole: false,
-    url: process.env.WINSTON_RABBITMQ_URL || 'amqp://localhost',
+    url: process.env.WINSTON_RABBITMQ_URL || 'amqp://localhost:5672',
     socketOpts: {},
     exchange: 'logs',
     exchangeOptions: {
