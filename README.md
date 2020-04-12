@@ -1,6 +1,6 @@
 # Log messages to RabbitMQ
 #### A Winston Transport module for sending logs to RabbitMQ
-[![NPM](https://nodei.co/npm/rabbitmq-logger.png)](https://nodei.co/npm/winston-daily-rotate-file/)
+[![NPM](https://nodei.co/npm/rabbitmq-logger.png)](https://nodei.co/npm/rabbitmq-logger/)
 
 This library was primarily designed to be used as a transport module for Winston logger.
 It can also be used as a simple utility for sending messages to RabbitMQ with minimum effort for configuration.
