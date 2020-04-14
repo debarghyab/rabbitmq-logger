@@ -2,6 +2,13 @@
 #### A Winston Transport module for sending logs to RabbitMQ
 [![NPM](https://nodei.co/npm/rabbitmq-logger.png)](https://nodei.co/npm/rabbitmq-logger/)
 
+
+![Node.js CI](https://github.com/debarghyab/winston-rabbitmq-transport/workflows/Node.js%20CI/badge.svg?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/debarghyab/winston-rabbitmq-transport/badge.svg?targetFile=package.json)](https://snyk.io/test/github/debarghyab/winston-rabbitmq-transport?targetFile=package.json)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/debarghyab/winston-rabbitmq-transport.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/debarghyab/winston-rabbitmq-transport/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/debarghyab/winston-rabbitmq-transport.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/debarghyab/winston-rabbitmq-transport/context:javascript)
+[![DeepScan grade](https://deepscan.io/api/teams/8541/projects/10743/branches/152613/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8541&pid=10743&bid=152613)
+
 This library was primarily designed to be used as a transport module for Winston logger.
 It can also be used as a simple utility for sending messages to RabbitMQ with minimum effort for configuration.
 
@@ -26,6 +33,25 @@ var logger = winston.createLogger({
 
 logger.info('Hello World!');
 ```   
+## Usage as a RabbitMQ helper utility
+``` js
+var winston = require('winston');
+require('rabbitmq-logger');
+
+var mq = winston.createLogger({
+	transports: [
+		new  winston.transports.RabbitmqTransport({
+			url:  'amqp://url:port'
+		})
+	]
+});
+
+module.exports = {
+	mq
+}
+
+mq.log('xyz', 'Hello World!');
+```
 ## Options
 The module can be customized using the following options :
 
@@ -39,9 +65,12 @@ The module can be customized using the following options :
 -  **timestamp:** By default it returns the current timestamp in ISO format. Can be overridden if required
 - **debug:** Takes a custom function that can be used for getting debug messages from the library. Only enabled if the logging level is also set as ```debug```
   
-
-![Node.js CI](https://github.com/debarghyab/winston-rabbitmq-transport/workflows/Node.js%20CI/badge.svg?branch=master)
-[![Known Vulnerabilities](https://snyk.io/test/github/debarghyab/winston-rabbitmq-transport/badge.svg?targetFile=package.json)](https://snyk.io/test/github/debarghyab/winston-rabbitmq-transport?targetFile=package.json)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/debarghyab/winston-rabbitmq-transport.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/debarghyab/winston-rabbitmq-transport/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/debarghyab/winston-rabbitmq-transport.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/debarghyab/winston-rabbitmq-transport/context:javascript)
-[![DeepScan grade](https://deepscan.io/api/teams/8541/projects/10743/branches/152613/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8541&pid=10743&bid=152613)
+## Message Format
+```js
+{
+    level: <log_level or custom_key>,
+    message: <message_body>,
+    name: <name of the logger instance>,
+    src: <system hostname>
+}
+```
