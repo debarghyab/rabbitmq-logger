@@ -37,7 +37,7 @@
   "dependencies": {
     "amqplib": "^0.5.5",
     "winston": "^3.2.1",
-    "snyk": "^1.349.0"
+    "snyk": "^1.431.4"
   },
   "devDependencies": {
     "eslint": "^6.0.1",
