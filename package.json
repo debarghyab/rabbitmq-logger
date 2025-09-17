@@ -36,7 +36,7 @@
   "homepage": "https://github.com/debarghyab/winston-rabbitmq-transport#readme",
   "dependencies": {
     "amqplib": "^0.8.0",
-    "winston": "^3.2.1",
+    "winston": "^3.17.0",
     "snyk": "^1.677.0"
   },
   "devDependencies": {
